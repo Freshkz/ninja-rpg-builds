@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07060B">
+<meta name="description" content="NinjaRPG: RPG de acción ninja cooperativo para 2 jugadores. Descarga para Windows.">
+<title>NinjaRPG</title>
+<link rel="icon" href="img/freshito.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<header class="hero wrap">
+  <div class="eyebrow">Cooperativo · 2 jugadores · Windows</div>
+  <h1>NinjaRPG</h1>
+  <p class="lede">RPG de acción ninja en tercera persona. Armá tu personaje, combatí con técnicas de chakra y jugá en pareja por Internet.</p>
+  <a class="btn" href="https://github.com/Freshkz/ninja-rpg-builds/releases/latest/download/NinjaRPG.zip">Descargar para Windows</a>
+  <p class="ver" id="ver">Buscando la última versión…</p>
+</header>
+
+<main class="wrap grid">
+  <section class="card">
+    <h2>Instalar</h2>
+    <ol>
+      <li>Descargá el ZIP.</li>
+      <li>Descomprimilo en una carpeta.</li>
+      <li>Abrí <b>NinjaRPG.exe</b>.</li>
+    </ol>
+    <p class="note">Si Windows muestra «Windows protegió tu PC», tocá <b>Más información → Ejecutar de todas formas</b>.</p>
+  </section>
+
+  <section class="card">
+    <h2>Jugar juntos</h2>
+    <ol>
+      <li>Los dos instalan <a href="https://tailscale.com/download">Tailscale</a> en la misma red.</li>
+      <li>Uno elige <b>Crear partida</b>: el menú muestra una IP que empieza con <b>100.</b></li>
+      <li>El otro elige <b>Unirse</b> y escribe esa IP.</li>
+    </ol>
+    <p class="note">Los dos tienen que tener la misma versión.</p>
+  </section>
+
+  <section class="card">
+    <h2>Controles</h2>
+    <dl class="keys">
+      <dt>WASD</dt><dd>Moverse</dd>
+      <dt>Mouse</dt><dd>Cámara</dd>
+      <dt>Shift</dt><dd>Correr</dd>
+      <dt>Espacio</dt><dd>Saltar</dd>
+      <dt>Ctrl</dt><dd>Esquivar</dd>
+    </dl>
+  </section>
+
+  <section class="card">
+    <h2>Combate</h2>
+    <dl class="keys">
+      <dt>Clic izq.</dt><dd>Atacar</dd>
+      <dt>Clic der.</dt><dd>Bloquear</dd>
+      <dt>1 · 2 · 3</dt><dd>Técnicas</dd>
+      <dt>E</dt><dd>Interactuar</dd>
+      <dt>F5</dt><dd>Guardar</dd>
+    </dl>
+  </section>
+</main>
+
+<footer class="wrap">
+  <img src="img/freshito.png" alt="" width="24" height="24">
+  <span>NinjaRPG · hecho por Fresh</span>
+</footer>
+
+<script>
+  const ver = document.getElementById('ver');
+  fetch('https://api.github.com/repos/Freshkz/ninja-rpg-builds/releases/latest')
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(rel => {
+      const zip = (rel.assets || []).find(a => a.name === 'NinjaRPG.zip');
+      const fecha = new Date(rel.published_at).toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+      ver.textContent = 'Versión ' + rel.tag_name.replace(/^v/, '') + ' · ' + fecha + (zip ? ' · ' + Math.round(zip.size / 1048576) + ' MB' : '');
+    })
+    .catch(() => { ver.textContent = 'No pude consultar la versión, pero el botón baja siempre la última.'; });
+</script>
+</body>
+</html>

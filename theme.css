@@ -1,0 +1,46 @@
+/* Valores de packages/fresh-ui/tokens/tokens.json (Fresh Design System). El sistema todavia no tiene CSS para HTML puro. */
+:root {
+  color-scheme: dark;
+  --bg: #07060B; --border: rgb(255 255 255 / .08); --surface: rgb(255 255 255 / .035);
+  --text: #F4F1FA; --text-secondary: #B3ADC6; --text-muted: #716B86;
+  --gold: #F5C542; --gold-soft: #FFE08A; --violet-soft: #B79CFF;
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; color: var(--text); font: 400 16px/1.65 var(--font-body);
+  background: radial-gradient(900px 500px at 50% -10%, rgb(139 92 246 / .22), transparent 70%) no-repeat, var(--bg);
+}
+a { color: var(--violet-soft); }
+b { color: var(--text); }
+h1, h2 { font-family: var(--font-display); margin: 0; line-height: 1.1; text-wrap: balance; }
+h1 { font-size: clamp(2.6rem, 9vw, 4.6rem); letter-spacing: -.02em; }
+h2 { font-size: 1.3rem; margin-bottom: 12px; }
+p { margin: 0; color: var(--text-secondary); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.wrap { max-width: 860px; margin-inline: auto; padding-inline: 16px; }
+
+.hero { padding-block: 72px 44px; text-align: center; }
+.eyebrow { font: 500 .78rem var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+.lede { margin: 16px auto 28px; max-width: 54ch; font-size: 1.08rem; }
+.btn {
+  display: inline-block; padding: 15px 30px; border-radius: 12px; font-weight: 700; text-decoration: none;
+  color: var(--bg); background: linear-gradient(180deg, var(--gold-soft), var(--gold));
+  box-shadow: 0 0 28px rgb(245 197 66 / .3); transition: filter .2s;
+}
+.btn:hover { filter: brightness(1.08); }
+.ver { margin-top: 14px; font: 400 .84rem var(--font-mono); color: var(--text-muted); }
+
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); padding-bottom: 16px; }
+.card { padding: 22px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); backdrop-filter: blur(12px); }
+ol { margin: 0; padding-left: 20px; color: var(--text-secondary); }
+li + li { margin-top: 8px; }
+.note { margin-top: 12px; font-size: .88rem; }
+.keys { display: grid; grid-template-columns: auto 1fr; gap: 8px 14px; margin: 0; align-items: baseline; }
+.keys dt { font: 500 .8rem var(--font-mono); color: var(--violet-soft); white-space: nowrap; }
+.keys dd { margin: 0; color: var(--text-secondary); }
+
+footer { display: flex; align-items: center; justify-content: center; gap: 10px; padding-block: 28px 40px; color: var(--text-muted); font-size: .85rem; }
+footer img { border-radius: 50%; }

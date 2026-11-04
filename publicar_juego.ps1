@@ -1,5 +1,5 @@
-# Publica una version nueva de NinjaRPG en este repo PRIVADO: comprime el build de Windows y lo sube como Release.
-# Solo pueden bajarlo Fresh y quien este invitado al repo. No hacer publico este repo: el build lleva assets extraidos.
+# Publica una version nueva de NinjaRPG: comprime el build de Windows y lo sube como Release.
+# El boton "Descargar" de la pagina web siempre baja la ultima.
 #
 # Uso:  doble clic en publicar_juego.bat
 #       o: powershell -ExecutionPolicy Bypass -File publicar_juego.ps1 [-Notas "que cambio"] [-Prueba] [-Build "ruta"]
@@ -37,14 +37,6 @@ function Invocar-GitHubSilencioso {
     return $LASTEXITCODE
 }
 
-# Lee un valor del repo con gh. Devuelve texto vacio si falla.
-function Leer-GitHub {
-    $antes = $ErrorActionPreference
-    $ErrorActionPreference = "Continue"
-    try { return (& gh.exe @args 2>$null | Out-String).Trim() }
-    finally { $ErrorActionPreference = $antes }
-}
-
 if ($Build) { $carpetaBuild = $Build } else { $carpetaBuild = Join-Path (Split-Path $PSScriptRoot -Parent) "$juego\Builds\Windows" }
 $carpetaBuild = [System.IO.Path]::GetFullPath($carpetaBuild)
 Write-Host "Juego: $carpetaBuild"
@@ -55,10 +47,6 @@ if (-not (Test-Path (Join-Path $carpetaBuild "$juego.exe"))) {
 
 if (-not $Prueba) {
     if ((Invocar-GitHubSilencioso auth status) -ne 0) { Salir "GitHub no tiene sesion iniciada. Corre: gh auth login" }
-    # El build lleva assets extraidos: solo se frena si GitHub confirma que el repo es publico. Un error al consultar no frena.
-    $visibilidad = Leer-GitHub repo view $repo --json visibility --jq ".visibility"
-    if ($visibilidad -eq "PUBLIC") { Salir "El repo $repo es PUBLICO: subir esto publicaria el juego. Volve a hacerlo privado en GitHub (Settings)." }
-    if (-not $visibilidad) { Write-Host "Aviso: no pude consultar la visibilidad del repo. Sigo igual." -ForegroundColor Yellow }
 }
 
 # Version = fecha y hora del build (asi dos builds distintos nunca chocan).
@@ -104,7 +92,7 @@ try {
 
     Write-Host ""
     Write-Host "Publicado $version ($mb MB)." -ForegroundColor Green
-    Write-Host "Link para bajarlo: https://github.com/$repo/releases/latest"
+    Write-Host "Pagina: https://freshkz.github.io/ninja-rpg-builds/"
 }
 finally {
     if (Test-Path $tmp) { Remove-Item -Recurse -Force $tmp -ErrorAction SilentlyContinue }
