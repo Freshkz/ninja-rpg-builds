@@ -19,7 +19,7 @@ Los dos jugadores tienen que usar **la misma versión**.
 ## Publicar una versión nueva (Fresh)
 
 1. Generá el build de Windows en `C:\Proyectos\NinjaRPG` (menú `NinjaRPG/Build/Windows (release)`).
-2. Doble clic en `publicar_juego.bat`. Si el repo dejó de ser privado, no sube nada.
+2. Doble clic en `publicar_juego.bat`. Solo frena si GitHub confirma que el repo es público; si hay un error al consultarlo, avisa y sigue.
 
 Para probar sin subir nada: `publicar_juego.bat -Prueba` (deja el ZIP en el Escritorio).
 

@@ -55,9 +55,10 @@ if (-not (Test-Path (Join-Path $carpetaBuild "$juego.exe"))) {
 
 if (-not $Prueba) {
     if ((Invocar-GitHubSilencioso auth status) -ne 0) { Salir "GitHub no tiene sesion iniciada. Corre: gh auth login" }
-    # El build lleva assets extraidos: si el repo dejo de ser privado, no se sube nada.
+    # El build lleva assets extraidos: solo se frena si GitHub confirma que el repo es publico. Un error al consultar no frena.
     $visibilidad = Leer-GitHub repo view $repo --json visibility --jq ".visibility"
-    if ($visibilidad -ne "PRIVATE") { Salir "El repo $repo no es privado (visibilidad: '$visibilidad'). No se sube nada." }
+    if ($visibilidad -eq "PUBLIC") { Salir "El repo $repo es PUBLICO: subir esto publicaria el juego. Volve a hacerlo privado en GitHub (Settings)." }
+    if (-not $visibilidad) { Write-Host "Aviso: no pude consultar la visibilidad del repo. Sigo igual." -ForegroundColor Yellow }
 }
 
 # Version = fecha y hora del build (asi dos builds distintos nunca chocan).
