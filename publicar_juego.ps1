@@ -83,7 +83,8 @@ try {
     Set-Content -Path (Join-Path $carpeta "VERSION.txt") -Value "$juego $version" -Encoding utf8
 
     Write-Host "Comprimiendo..."
-    & tar.exe -a -c -f $zip -C $tmp $juego
+    # El tar de Windows, con ruta completa: el de Git, si esta primero en el PATH, confunde "C:" con un servidor.
+    & (Join-Path $env:SystemRoot "System32\tar.exe") -a -c -f $zip -C $tmp $juego
     if ($LASTEXITCODE -ne 0) { Salir "Fallo al comprimir." }
     $mb = [math]::Round((Get-Item $zip).Length / 1MB, 1)
     Write-Host "ZIP listo: $mb MB"
