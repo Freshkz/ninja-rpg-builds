@@ -1,0 +1,3 @@
+# Los builds van como Release, nunca en el historial
+*.zip
+Builds/
