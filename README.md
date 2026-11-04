@@ -23,6 +23,16 @@ Los dos jugadores tienen que usar **la misma versión**.
 
 Para probar sin subir nada: `publicar_juego.bat -Prueba` (deja el ZIP en el Escritorio).
 
+### Subirlo a mano, sin el script
+
+1. Armá el ZIP: en una terminal, dentro de esta carpeta, corré `.\publicar_juego.bat -Prueba`. Deja `NinjaRPG_prueba.zip` en el Escritorio, sin las carpetas de depuración.
+2. Entrá a [crear una versión](https://github.com/Freshkz/ninja-rpg-builds/releases/new).
+3. En **Choose a tag**, escribí una versión nueva (por ejemplo `v2026.11.04-1`) y elegí **Create new tag**.
+4. Poné un título y arrastrá el ZIP a la zona de archivos. Esperá a que termine de subir.
+5. Dejá marcado **Set as the latest release** y tocá **Publish release**.
+
+Subí el ZIP siempre como Release, no con `git push` ni en la pestaña Code.
+
 ## Invitar a alguien
 
 ```powershell
